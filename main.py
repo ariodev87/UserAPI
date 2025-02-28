@@ -1,14 +1,17 @@
-from typing import Optional
 
 from fastapi import FastAPI
+from routers import user2
+from routers import users_db
+from routers import jwt_auth_user
 
 app = FastAPI()
+app.include_router(user2.app)
+app.include_router(jwt_auth_user.app)
+app.include_router(users_db.app)
 
-
-@app.get("/")
+@app.get("/testapi")
 async def root():
-    return {"message": "Hello World"}
+    return "Hello World"
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+
+
